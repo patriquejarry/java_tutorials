@@ -1,4 +1,4 @@
-package com.di;
+package com.di.annotations;
 
 import java.lang.annotation.*;
 

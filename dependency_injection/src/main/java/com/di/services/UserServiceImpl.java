@@ -1,4 +1,6 @@
-package com.di;
+package com.di.services;
+
+import com.di.annotations.CustomComponent;
 
 @CustomComponent
 public class UserServiceImpl implements UserService {

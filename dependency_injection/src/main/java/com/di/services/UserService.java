@@ -1,4 +1,4 @@
-package com.di;
+package com.di.services;
 
 public interface UserService {
 	String getUserName();
