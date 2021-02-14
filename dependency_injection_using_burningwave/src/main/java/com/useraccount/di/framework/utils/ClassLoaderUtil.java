@@ -18,24 +18,23 @@ public class ClassLoaderUtil {
 	/**
 	 * Get all the classes for the input package
 	 */
-	public static Class<?>[] getClasses(String packageName, boolean recursive) throws ClassNotFoundException, IOException {
-		ComponentContainer componentConatiner = ComponentContainer.getInstance();
-		ClassHunter classHunter = componentConatiner.getClassHunter();
-		String packageRelPath = packageName.replace(".", "/");
-		CacheableSearchConfig config = SearchConfig.forResources(
-			Thread.currentThread().getContextClassLoader(),
-			packageRelPath
-		);
+	public static Class<?>[] getClasses(final String packageName, final boolean recursive)
+		throws ClassNotFoundException, IOException {
+
+		final ComponentContainer componentConatiner = ComponentContainer.getInstance();
+		final ClassHunter classHunter = componentConatiner.getClassHunter();
+		final String packageRelPath = packageName.replace(".", "/");
+		final CacheableSearchConfig config = SearchConfig.forResources(Thread.currentThread().getContextClassLoader(),
+			packageRelPath);
+
 		if (!recursive) {
-			config.notRecursiveOnPath(
-				packageRelPath, false
-			);
+			config.notRecursiveOnPath(packageRelPath, false);
 		}
-		
+
 		try (SearchResult result = classHunter.loadInCache(config).find()) {
-			Collection<Class<?>> classes = result.getClasses();
+			final Collection<Class<?>> classes = result.getClasses();
 			return classes.toArray(new Class[classes.size()]);
-		}	
+		}
 	}
 
 }

@@ -13,14 +13,15 @@ public class CustomDemoApplication {
 		this.injector = new CustomInjector();
 	}
 
-	public void run(Class<?> mainClassz) {
-		boolean hasCustomApplicationAnnotation = mainClassz.isAnnotationPresent(CustomApplication.class);
+	public void run(final Class<?> mainClassz) {
 
+		final boolean hasCustomApplicationAnnotation = mainClassz.isAnnotationPresent(CustomApplication.class);
 		if (hasCustomApplicationAnnotation) {
 			System.out.println("Starting CustomDemoApplication...");
 			this.startApplication(UserAccountApplication.class);
 			this.injector.getService(ClientApplicacation.class).displayUserAccount();
 			System.out.println("\nStopping CustomDemoApplication...");
+
 		} else {
 			System.out.println("\nRunning as regular java Application...");
 		}
@@ -28,21 +29,22 @@ public class CustomDemoApplication {
 
 	/**
 	 * Start application
-	 * 
+	 *
 	 * @param mainClass
 	 */
-	public void startApplication(Class<?> mainClass) {
+	public void startApplication(final Class<?> mainClass) {
 		try {
 			synchronized (CustomDemoApplication.class) {
 				this.injector.initFramework(mainClass);
 				System.out.println("\nCustomDemoApplication Started....");
 			}
-		} catch (Exception ex) {
+
+		} catch (final Exception ex) {
 			ex.printStackTrace();
 		}
 	}
 
-	public static void run(Class<?> mainClassz, String[] args) {
+	public static void run(final Class<?> mainClassz, final String[] args) {
 		new CustomDemoApplication().run(mainClassz);
 	}
 }
